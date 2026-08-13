@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verifica tu Auto Perú | Consulta Integral</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&family=Poppins:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul-noche: #0a1f44; /* Azul oscuro principal */
+      --azul-principal: #1464cc; /* Azul de acento más claro */
+      --amarillo-vibrante: #f59e0b; /* Amarillo principal de llamado a acción */
+      --amarillo-suave: #fde68a; /* Amarillo más claro para fondos */
+      --gris-oscuro: #374151; /* Texto principal */
+      --gris-medio: #6b7280; /* Texto secundario */
+      --gris-claro: #e5e7eb; /* Bordes y fondos secundarios */
+      --blanco-limpio: #ffffff;
+      --fondo-page: #f9fafb; /* Fondo general de la página */
+
+      --sombra-suave: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --sombra-mas-profunda: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--fondo-page);
+      color: var(--gris-oscuro);
+      line-height: 1.6;
+    }
+
+    /* TIPOGRAFÍA */
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--azul-noche);
+      font-weight: 700;
+    }
+    h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+    h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 1rem;}
+    h3 { font-size: 1.5rem; margin-bottom: 0.8rem; }
+    h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+
+    .btn, button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--amarillo-vibrante);
+      color: var(--azul-noche);
+      padding: 12px 25px;
+      box-shadow: var(--sombra-suave);
+      font-size: 1rem;
+    }
+    .btn-primary:hover {
+      background: #e08e0b; /* Amarillo un poco más oscuro al hacer hover */
+      box-shadow: var(--sombra-mas-profunda);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--azul-noche);
+      color: var(--blanco-limpio);
+      padding: 10px 20px;
+      box-shadow: var(--sombra-suave);
+      font-size: 0.95rem;
+    }
+    .btn-secondary:hover {
+      background: var(--azul-principal);
+      box-shadow: var(--sombra-mas-profunda);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-yellow {
+      background: transparent;
+      color: var(--amarillo-vibrante);
+      border: 2px solid var(--amarillo-vibrante);
+      padding: 10px 20px;
+      font-size: 0.95rem;
+    }
+    .btn-outline-yellow:hover {
+      background: var(--amarillo-vibrante);
+      color: var(--azul-noche);
+      box-shadow: var(--sombra-suave);
+    }
+
+    input[type="text"], input[type="date"], input[type="number"] {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      padding: 12px 15px;
+      border: 1px solid var(--gris-claro);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus {
+      outline: none;
+      border-color: var(--amarillo-vibrante);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); /* Sombra amarilla al enfocar */
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(12deg, var(--azul-noche) 60%, rgba(10, 31, 68, 0.8) 100%);
+      padding: 1.5rem 8%;
+      color: var(--blanco-limpio);
+      box-shadow: var(--sombra-suave);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap; /* Para que se adapte a pantallas pequeñas */
+    }
+    .logo-principal {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .logo-principal .icono-auto {
+      background: var(--blanco-limpio);
+      color: var(--azul-noche);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: var(--amarillo-vibrante);
+      text-decoration: underline;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(130deg, rgba(10, 31, 68, 0.9) 10%, rgba(10, 31, 68, 0.6) 60%), url("https://images.unsplash.com/photo-1503376962409-e7046a6f7074?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1900&q=80"); /* Imagen de fondo moderna */
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 6rem 8%;
+      text-align: center;
+      position: relative; /* Para el overlay y el buscador */
+    }
+    .hero::before { /* Overlay para mejorar contraste de texto */
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(130deg, rgba(10, 31, 68, 0.9) 10%, rgba(10, 31, 68, 0.6) 60%);
+        z-index: 1;
+    }
+    .hero > * { /* Asegura que el contenido esté sobre el overlay */
+        position: relative;
+        z-index: 2;
+    }
+    .hero h1 {
+      margin-bottom: 1rem;
+      color: var(--blanco-limpio);
+    }
+    .hero p {
+      max-width: 750px;
+      margin: 0 auto 2rem auto;
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+    .buscador-hero {
+      display: flex;
+      max-width: 650px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 14px;
+      padding: 15px;
+      box-shadow: var(--sombra-mas-profunda);
+      gap: 10px;
+      flex-wrap: wrap; /* Para pantallas pequeñas */
+      justify-content: center;
+    }
+    .buscador-hero input {
+      flex-grow: 1;
+      min-width: 250px; /* Mínimo para el campo de placa */
+      border: none;
+      padding: 15px 20px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      background: var(--fondo-page);
+      color: var(--azul-noche);
+    }
+    .buscador-hero input:focus {
+      border-color: var(--amarillo-vibrante);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+    }
+    .buscador-hero button {
+      padding: 15px 30px;
+      font-size: 1.1rem;
+    }
+    .aviso-hero {
+      display: block;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      max-width: 1300px;
+      margin: 4rem auto 5rem auto;
+      padding: 0 2%;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr; /* Columna principal y lateral */
+      gap: 30px;
+    }
+    .col-principal {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas para las tarjetas de instituciones */
+      gap: 25px;
+    }
+    .col-lateral {
+      display: grid;
+      gap: 25px;
+      align-content: start; /* Alinea los elementos al inicio si hay menos espacio */
+    }
+
+    /* TARJETAS DE INSTITUCIONES */
+    .tarjeta-institucion {
+      background: var(--blanco-limpio);
+      border-radius: 16px;
+      box-shadow: var(--sombra-suave);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tarjeta-institucion:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--sombra-mas-profunda);
+    }
+    .tarjeta-institucion .header {
+      background: linear-gradient(150deg, var(--azul-noche) 10%, var(--azul-principal) 90%);
+      padding: 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      min-height: 140px; /* Para que el logo y título tengan espacio */
+      justify-content: center;
+    }
+    .tarjeta-institucion .header .logo {
+      width: 70px;
+      height: 50px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+    .tarjeta-institucion .header h3 {
+      color: var(--blanco-limpio);
+      font-size: 1.3rem;
+      margin-bottom: 0;
+    }
+    .tarjeta-institucion .content {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .tarjeta-institucion .content p {
+      font-size: 0.9rem;
+      color: var(--gris-medio);
+      flex-grow: 1;
+    }
+    .tarjeta-institucion .content .detalles-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap; /* Para que los inputs se ajusten */
+    }
+    .tarjeta-institucion .content .detalles-input span {
+      font-size: 0.9rem;
+      color: var(--gris-oscuro);
+      font-weight: 600;
+    }
+    .tarjeta-institucion .content .detalles-input input {
+      flex-grow: 1;
+      background: var(--fondo-page);
+      text-transform: uppercase;
+      min-width: 120px; /* Para que no se hagan demasiado pequeños */
+    }
+    .tarjeta-institucion .content .detalles-input .icono-cal,
+    .tarjeta-institucion .content .detalles-input .icono-trash {
+      background: var(--gris-claro);
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.3s ease;
+    }
+    .tarjeta-institucion .content .detalles-input .icono-cal:hover,
+    .tarjeta-institucion .content .detalles-input .icono-trash:hover {
+      background: var(--amarillo-vibrante);
+      color: var(--azul-noche);
+    }
+    .tarjeta-institucion .content .acciones-tarjeta {
+      margin-top: auto; /* Empuja las acciones al final */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .tarjeta-institucion .content .acciones-tarjeta .btn-secondary {
+        padding: 8px 15px; /* Botones de guardar/borrar más pequeños */
+        font-size: 0.85rem;
+    }
+
+    /* SECCION TUTORIAL Y CONTADOR */
+    .card-tutorial, .card-propietarios, .card-boleta, .card-registros {
+      background: var(--blanco-limpio);
+      border-radius: 16px;
+      box-shadow: var(--sombra-suave);
+      padding: 25px;
+    }
+    .card-tutorial h2, .card-propietarios h2, .card-boleta h2, .card-registros h2 {
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--azul-noche);
+    }
+    .card-tutorial .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      background: #000;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    .card-tutorial .video-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+    .card-tutorial .atencion {
+      background: var(--amarillo-suave);
+      color: var(--azul-noche);
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      border-left: 4px solid var(--amarillo-vibrante);
+    }
+    .card-propietarios {
+      background: var(--blanco-limpio);
+      box-shadow: var(--sombra-suave);
+      border-radius: 16px;
+      padding: 25px;
+    }
+    .card-propietarios .dueños-input {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .card-propietarios .dueños-input label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gris-oscuro);
+    }
+    .card-propietarios .dueños-input input {
+      width: 60px;
+      text-align: center;
+      padding: 10px 5px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--azul-noche);
+    }
+    .card-propietarios .dueños-input .icono-user {
+      font-size: 1.5rem;
+      color: var(--gris-medio);
+    }
+    .card-boleta {
+      background: var(--amarillo-suave); /* Fondo llamativo */
+      border-radius: 16px;
+      padding: 25px;
+      border-left: 5px solid var(--amarillo-vibrante);
+      box-shadow: var(--sombra-suave);
+    }
+    .card-boleta h2 {
+      color: var(--azul-noche);
+      font-size: 1.5rem;
+    }
+    .card-boleta .costo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      margin-bottom: 15px;
+    }
+    .card-boleta .costo .precio {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--amarillo-vibrante);
+      display: flex;
+      align-items: baseline;
+    }
+    .card-boleta .costo .precio .s-label {
+      font-size: 1.5rem;
+      margin-right: 5px;
+    }
+    .card-boleta .btn-primary {
+      width: 100%; /* Botón que ocupa todo el ancho */
+    }
+    .card-boleta .atencion-boleta {
+      font-size: 0.85rem;
+      color: var(--gris-oscuro);
+      margin-top: 20px;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    /* SECCIÓN DE REGISTROS GUARDADOS */
+    .card-registros {
+      background: var(--blanco-limpio);
+      border-radius: 16px;
+      box-shadow: var(--sombra-suave);
+      padding: 25px;
+    }
+    .card-registros h2 {
+      color: var(--azul-noche);
+      font-size: 1.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap; /* Para que se adapte */
+    }
+    .card-registros .export-button {
+      background: var(--gris-oscuro);
+      color: white;
+      padding: 8px 15px;
+      font-size: 0.8rem;
+      border-radius: 8px;
+    }
+    .card-registros .export-button:hover {
+      background: var(--gris-medio);
+    }
+    .card-registros .registro-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gris-claro);
+      font-size: 0.9rem;
+      color: var(--gris-oscuro);
+    }
+    .card-registros .registro-item:last-child {
+      border-bottom: none;
+    }
+    .card-registros .registro-item .datos {
+      flex-grow: 1;
+      margin-right: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap; /* Para que los elementos se ajusten */
+    }
+    .card-registros .registro-item .datos .institucion {
+      font-weight: 600;
+      color: var(--azul-noche);
+    }
+    .card-registros .registro-item .datos .monto {
+      color: var(--amarillo-vibrante);
+      font-weight: bold;
+    }
+    .card-registros .registro-item .acciones {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0; /* Evita que se encojan */
+    }
+    .card-registros .registro-item .acciones .delete-btn {
+      background: none;
+      border: none;
+      color: var(--gris-medio);
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    .card-registros .registro-item .acciones .delete-btn:hover {
+      color: var(--amarillo-vibrante);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--azul-noche);
+      color: #ccd0d4;
+      padding: 3rem 8%;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 5rem;
+    }
+    footer p { margin-bottom: 1rem; }
+    footer strong { color: var(--blanco-limpio); }
+    footer a {
+      color: var(--amarillo-vibrante);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* MEDIA QUERIES - RESPONSIVE DESIGN */
+    @media (max-width: 1100px) {
+      .main-grid {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas medianas */
+      }
+      .col-lateral {
+        grid-auto-flow: dense; /* Para que los elementos se apilen eficientemente */
+      }
+      .col-principal {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Ajuste para tarjetas */
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1.2rem 4%;
+        gap: 15px;
+      }
+      .logo-principal { font-size: 1.3rem; }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+      .hero {
+        padding: 4rem 4%;
+      }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+      .buscador-hero {
+        flex-direction: column;
+        padding: 10px;
+      }
+      .buscador-hero input, .buscador-hero button {
+        width: 100%;
+      }
+      main {
+        margin: 3rem auto 3rem auto;
+      }
+      .tarjeta-institucion .header { min-height: 120px; }
+      .tarjeta-institucion .content .detalles-input { flex-wrap: wrap; }
+      .tarjeta-institucion .content .detalles-input input { width: 100%; min-width: 0; }
+      .tarjeta-institucion .content .detalles-input .icono-cal,
+      .tarjeta-institucion .content .detalles-input .icono-trash { margin-left: auto; } /* Mueve iconos a la derecha */
+      .tarjeta-institucion .content .acciones-tarjeta { flex-direction: column; } /* Botones apilados */
+      .card-propietarios .dueños-input { flex-wrap: wrap; justify-content: center; }
+      .card-boleta .costo { flex-direction: column; }
+      .card-boleta .costo .precio { font-size: 2rem; }
+      .card-boleta .costo .s-label { margin-right: 0; }
+      .card-registros .registro-item .datos { flex-direction: column; gap: 5px; margin-right: 0;}
+      .card-registros .registro-item .acciones { margin-top: 10px; justify-content: center;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo-principal">
+      <div class="icono-auto">🚘</div>
+      <span>Verifica tu Auto Perú</span>
+    </div>
+    <nav>
+      <a href="#deudas">Deudas</a>
+      <a href="#tutorial">Tutorial</a>
+      <a href="#boleta">Boleta Informativa</a>
+      <a href="#registros">Mis Registros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Verifica tu vehículo de forma segura y rápida</h1>
+    <p>Accede a las principales plataformas oficiales del Perú para consultar deudas, multas, SOAT y más. ¡Evita sorpresas!</p>
+    <div class="buscador-hero">
+      <input type="text" id="placa-hero" placeholder="Ingresa la placa del vehículo (ej: ABC-123)" />
+      <button class="btn-primary" onclick="buscarPlacaHero()">Verificar Placa</button>
+    </div>
+    <span class="aviso-hero">Consulta directa a fuentes oficiales.</span>
+  </section>
+
+  <main>
+    <div class="main-grid">
+      <!-- COLUMNA PRINCIPAL (INSTITUCIONES) -->
+      <div class="col-principal" id="seccion-deudas">
+
+        <!-- TARJETA SAT LIMA -->
+        <div class="tarjeta-institucion">
+          <div class="header">
+            <img class="logo" src="https://www.google.com/s2/favicons?domain=sat.gob.pe&sz=128" alt="Logo SAT Lima" />
+            <h3>SAT Lima</h3>
+          </div>
+          <div class="content">
+            <p>Servicio de Administración Tributaria de Lima. Consulta de deudas y papeletas.</p>
+            <div class="detalles-input">
+              <span>S/</span>
+              <input type="number" class="deuda-input" placeholder="Monto" min="0" />
+              <span class="icono-trash" onclick="limpiarCampo(this.parentElement.querySelector('.deuda-input'))" title="Limpiar monto">🗑️</span>
+            </div>
+            <div class="acciones-tarjeta">
+              <button class="btn-secondary" onclick="guardarRegistro('SAT Lima', this.parentElement.parentElement.querySelector('.deuda-input'), null, this.parentElement.parentElement.querySelector('.fecha-input'))">Guardar Deuda</button>
+              <button class="btn-secondary" onclick="limpiarTarjeta(this.closest('.tarjeta-institucion'))">Borrar Tarjeta</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA SOAT -->
+        <div class="tarjeta-institucion">
+          <div class="header">
+            <img class="logo" src="https://www.google.com/s2/favicons?domain=apeseg.org.pe&sz=128" alt="Logo SOAT" />
+            <h3>SOAT</h3>
+          </div>
+          <div class="content">
+            <p>Seguro Obligatorio de Accidentes de Tránsito. Verifica vigencia.</p>
+            <div class="detalles-input">
+              <input type="date" class="fecha-input" placeholder="Fecha Expedición" />
+              <span class="icono-cal" title="Seleccionar fecha">📅</span>
+              <input type="text" class="monto-input" placeholder="Observaciones" style="flex-grow: 2; background: var(--fondo-page);"/>
+            </div>
+            <div class="acciones-tarjeta">
+              <button class="btn-secondary" onclick="guardarRegistro('SOAT', null, this.parentElement.parentElement.querySelector('.fecha-input'), this.parentElement.parentElement.querySelector('.monto-input'))">Guardar Datos</button>
+              <button class="btn-secondary" onclick="limpiarTarjeta(this.closest('.tarjeta-institucion'))">Borrar Tarjeta</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA SUTRAN -->
+        <div class="tarjeta-institucion">
+          <div class="header">
+            <img class="logo" src="https://www.google.com/s2/favicons?domain=sutran.gob.pe&sz=128" alt="Logo SUTRAN" />
+            <h3>SUTRAN</h3>
+          </div>
+          <div class="content">
+            <p>Superintendencia de Transporte Terrestre de Personas, Carga y Mercancías.</p>
+            <div class="detalles-input">
+              <span>S/</span>
+              <input type="number" class="deuda-input" placeholder="Record Infrac." min="0" />
+              <span class="icono-trash" onclick="limpiarCampo(this.parentElement.querySelector('.deuda-input'))" title="Limpiar monto">🗑️</span>
+            </div>
+            <div class="acciones-tarjeta">
+              <button class="btn-secondary" onclick="guardarRegistro('SUTRAN', this.parentElement.parentElement.querySelector('.deuda-input'), null, null)">Guardar Infrac.</button>
+              <button class="btn-secondary" onclick="limpiarTarjeta(this.closest('.tarjeta-institucion'))">Borrar Tarjeta</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA REVISIÓN TÉCNICA -->
+        <div class="tarjeta-institucion">
+          <div class="header">
+            <img class="logo" src="https://www.google.com/s2/favicons?domain=gob.pe/mtc&sz=128" alt="Logo MTC" />
+            <h3>Revisión Técnica</h3>
+          </div>
+          <div class="content">
+            <p>Ministerio de Transportes y Comunicaciones. Vigencia de inspección.</p>
+            <div class="detalles-input">
+              <input type="date" class="fecha-input" placeholder="Fecha Inspección" />
+              <span class="icono-cal" title="Seleccionar fecha">📅</span>
+               <input type="text" class="monto-input" placeholder="Estado" style="flex-grow: 2; background: var(--fondo-page);"/>
+            </div>
+            <div class="acciones-tarjeta">
+              <button class="btn-secondary" onclick="guardarRegistro('Revisión Técnica', null, this.parentElement.parentElement.querySelector('.fecha-input'), this.parentElement.parentElement.querySelector('.monto-input'))">Guardar Datos</button>
+              <button class="btn-secondary" onclick="limpiarTarjeta(this.closest('.tarjeta-institucion'))">Borrar Tarjeta</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjetas adicionales (copiar y pegar el bloque anterior para más SATs, etc.) -->
+        <!-- Ejemplo SAT Arequipa -->
+        <div class="tarjeta-institucion">
+          <div class="header">
+            <img class="logo" src="https://www.google.com/s2/favicons?domain=satarequipa.gob.pe&sz=128" alt="Logo SAT Arequipa" />
+            <h3>SAT Arequipa</h3>
+          </div>
+          <div class="content">
+            <p>Servicio de Administración Tributaria de Arequipa.</p>
+            <div class="detalles-input">
+              <span>S/</span>
+              <input type="number" class="deuda-input" placeholder="Monto" min="0"/>
+              <span class="icono-trash" onclick="limpiarCampo(this.parentElement.querySelector('.deuda-input'))" title="Limpiar monto">🗑️</span>
+            </div>
+            <div class="acciones-tarjeta">
+              <button class="btn-secondary" onclick="guardarRegistro('SAT Arequipa', this.parentElement.parentElement.querySelector('.deuda-input'), null, null)">Guardar Deuda</button>
+              <button class="btn-secondary" onclick="limpiarTarjeta(this.closest('.tarjeta-institucion'))">Borrar Tarjeta</button>
+            </div>
+          </div>
+        </div>
+        <!-- Fin ejemplo SAT Arequipa -->
+
+         <!-- Ejemplo ATU -->
+         <div class="tarjeta-institucion">
+          <div class="header">
+            <img class="logo" src="https://www.google.com/s2/favicons?domain=atu.gob.pe&sz=128" alt="Logo ATU" />
+            <h3>ATU</h3>
+          </div>
+          <div class="content">
+            <p>Autoridad de Transporte Urbano de Lima y Callao.</p>
+            <div class="detalles-input">
+              <span>S/</span>
+              <input type="number" class="deuda-input" placeholder="Deuda" min="0"/>
+              <span class="icono-trash" onclick="limpiarCampo(this.parentElement.querySelector('.deuda-input'))" title="Limpiar monto">🗑️</span>
+            </div>
+            <div class="acciones-tarjeta">
+              <button class="btn-secondary" onclick="guardarRegistro('ATU', this.parentElement.parentElement.querySelector('.deuda-input'), null, null)">Guardar Deuda</button>
+              <button class="btn-secondary" onclick="limpiarTarjeta(this.closest('.tarjeta-institucion'))">Borrar Tarjeta</button>
+            </div>
+          </div>
+        </div>
+        <!-- Fin ejemplo ATU -->
+
+        <!-- ... Puedes seguir agregando más tarjetas aquí ... -->
+
+      </div>
+
+      <!-- COLUMNA LATERAL (TUTORIAL, PROPIETARIOS, BOLETA, REGISTROS) -->
+      <div class="col-lateral">
+
+        <!-- SECCIÓN PROPIETARIOS (basado en el boceto) -->
+        <div class="card-propietarios">
+          <h2><span class="icono-user">👥</span> Propietarios</h2>
+          <p>Filtra la cantidad de dueños anteriores.</p>
+          <div class="dueños-input">
+            <label for="dueños">Dueños Anteriores:</label>
+            <input type="number" id="dueños" value="0" min="0" style="text-transform: none;"/>
+          </div>
+        </div>
+
+        <!-- SECCIÓN TUTORIAL -->
+        <div class="card-tutorial" id="tutorial">
+          <h2><img class="logo" src="https://www.google.com/s2/favicons?domain=sunarp.gob.pe&sz=128" alt="Logo SUNARP" style="width: 30px; height: 30px;"/> Tutorial SUNARP</h2>
+          <p>Ver el siguiente video para seguir los pasos de cómo filtrar de las 3 formas.</p>
+          <div class="video-container">
+            <!-- REEMPLAZA 'example_video_id' CON EL ID REAL DE TU VIDEO DE YOUTUBE -->
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="atencion">
+            <strong>ATENCIÓN:</strong> La información de este tutorial te guiará en los procesos de consulta.
+          </div>
+        </div>
+
+        <!-- SECCIÓN BOLETA INFORMATIVA -->
+        <div class="card-boleta" id="boleta">
+          <h2>📝 Solicitar Boleta Informativa</h2>
+          <div class="costo">
+            <div class="precio">
+              <span class="s-label">s/</span>6.40
+            </div>
+            <button class="btn-primary">Solicitar Ahora</button>
+          </div>
+          <p class="atencion-boleta">
+            <strong>ATENCIÓN:</strong> Cuando realices la transferencia vehicular en una notaria la boleta informativa es un requisito para la venta, ya que de esta forma se evidenciara si el vehículo tiene gravamenes o no, como también los propietarios actuales y detalles del vehículo.
+          </p>
+        </div>
+
+        <!-- NUEVA SECCIÓN: MIS REGISTROS GUARDADOS -->
+        <div class="card-registros" id="registros">
+          <h2>
+            Mis Registros Guardados
+            <button class="export-button" onclick="exportarRegistrosCSV()">Exportar Registro (CSV)</button>
+          </h2>
+          <div id="lista-registros-guardados">
+            <!-- Aquí se añadirán dinámicamente los registros guardados -->
+            <p style="font-size: 0.9rem; color: var(--gris-medio);">Aún no has guardado ninguna deuda. Usa el botón "Guardar Deuda" en las tarjetas.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Verifica tu Auto Perú. Todos los derechos reservados.</p>
+    <p>Esta plataforma es una herramienta informativa y de ayuda para la verificación de vehículos en Perú. Los logos y nombres de las entidades mencionadas pertenecen a sus respectivos dueños.</p>
+    <p id="contacto">¿Preguntas o sugerencias? <a href="mailto:soporte@verificatuauto.pe">soporte@verificatuauto.pe</a></p>
+  </footer>
+
+  <script>
+    // --- ALMACENAMIENTO LOCAL PARA REGISTROS ---
+    const STORAGE_KEY = 'verificatuauto_registros';
+
+    function getRegistrosGuardados() {
+      const registrosJSON = localStorage.getItem(STORAGE_KEY);
+      return registrosJSON ? JSON.parse(registrosJSON) : [];
+    }
+
+    function guardarRegistrosGuardados(registros) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(registros));
+    }
+
+    function actualizarListaRegistrosUI() {
+      const listaDiv = document.getElementById('lista-registros-guardados
